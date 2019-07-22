@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Train Scheduler</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+        integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <link rel="stylesheet" href="assets/css/style.css">
+
+</head>
+
+<body>
+
+    <!-- Header -->
+    <div class="jumbotron jumbotron-fluid">
+        <div class="container">
+            <h1 class="display-4">Train Scheduler</h1>
+            <p class="lead">Check info about your travel status.</p>
+        </div>
+    </div>
+
+    <!-- Table -->
+    <table class="table table-hover">
+        <thead class="thead-dark">
+            <th>Current Train Schedule</th>
+        </thead>
+    </table>
+
+    <table class="table table-hover">
+        <thead>
+            <tr>
+                <th scope="col">Train Name</th>
+                <th scope="col">Destination</th>
+                <th scope="col">Frequency (min)</th>
+                <th scope="col">Next Arrival</th>
+                <th scope="col">Minutes Away</th>
+
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <th scope="row"></th>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+
+            </tr>
+            <tr>
+                <th scope="row"></th>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+
+            </tr>
+            <tr>
+                <th scope="row"></th>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+
+            </tr>
+            <tr>
+                <th scope="row"></th>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+
+            </tr>
+            <tr>
+                <th scope="row"></th>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+
+            </tr>
+        </tbody>
+    </table>
+
+    <!-- Form -->
+    <table class="table table-hover">
+        <thead class="thead-dark">
+            <th>Add Train</th>
+        </thead>
+    </table>
+
+    <form>
+        <div class="form-group">
+            <label for="Input">Train Name</label>
+            <input type="text" class="form-control" id="name-text">
+        </div>
+        <div class="form-group">
+            <label for="Input2">Destination</label>
+            <input type="text" class="form-control" id="destination-text">
+        </div>
+        <div class="form-group">
+            <label for="Input3">First Train Time (HH:MM - Military Time)</label>
+            <input type="text" class="form-control" id="time-text">
+        </div>
+        <div class="form-group">
+            <label for="Input4">Frequency (min)</label>
+            <input type="text" class="form-control" id="frequency-text">
+        </div>
+        <div class="submit-text btn btn-dark">Submit</div>
+    </form>
+</body>
+
+<!-- jQuery, Firebase, and Moment -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+<script src="https://cdn.jsdelivr.net/momentjs/2.12.0/moment.min.js"></script>
+<script src="https://www.gstatic.com/firebasejs/6.0.4/firebase-app.js"></script>
+<script src="https://www.gstatic.com/firebasejs/6.0.4/firebase-database.js"></script>
+
+<script>
+    // Your web app's Firebase configuration
+    var firebaseConfig = {
+        apiKey: "AIzaSyCqNzQgw2Ime4kKdd3YHCd5oajaNlGphnc",
+        authDomain: "test-project-6cfff.firebaseapp.com",
+        databaseURL: "https://test-project-6cfff.firebaseio.com",
+        projectId: "test-project-6cfff",
+        storageBucket: "",
+        messagingSenderId: "583355390777",
+        appId: "1:583355390777:web:d5dfb38807b52297"
+    };
+    // Initialize Firebase
+    firebase.initializeApp(firebaseConfig);
+
+    var database = firebase.database();
+
+    $(document).ready(function () {
+
+        var name = "";
+        var destination = "";
+        var time = "";
+        var frequency = "";
+
+        $('.submit-text').on('click', function (event) {
+
+            event.preventDefault();
+
+            var newTrain = {
+                name: $('#name-text').val().trim(),
+                destination: $('#destination-text').val().trim(),
+                time: moment($('#time-text').val().trim()).format('LT'),
+                frequency: $('rate-text').val().trim()
+            };
+
+            $('input').val("");
+
+            database.ref().push(newTrain);
+            console.log(newTrain);
+            y
+            database.ref().on('child_added', function (childSnapshot) {
+                console.log(childSnapshot.val().name);
+                console.log(childSnapshot.val().destination);
+                console.log(childSnapshot.val().time);
+                console.log(childSnapshot.val().frequency);
+
+                var hourDisplay = moment(childSnapshot.val().start, 'X').format('LT');
+                var minutesAway = moment().diff(moment(childSnapshot.val().start, 'X'), 'minutes');
+
+                var tr = $('<tr>');
+
+                var tdName = $("<td>").text(childSnap.val().name);
+                var tdRole = $("<td>").text(childSnap.val().destination);
+                var tdStart = $("<td>").text(displayDate);
+                var tdMonths = $("<td>").text(monthsWorked);
+                var tdRate = $("<td>").text(childSnap.val().rate);
+                var tdTotal = $("<td>").text(totalBilled);
+
+                tr.append(tdName).append(tdRole).append(tdStart).append(tdMonths).append(tdRate).append(tdTotal);
+
+                $('.employees tbody').append(tr);
+
+            });
+
+
+
+        });
+
+
+    })
+
+</script>
+
+</html>
